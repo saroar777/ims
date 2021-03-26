@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2021 at 03:04 PM
+-- Generation Time: Mar 26, 2021 at 02:13 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -37,10 +37,11 @@ CREATE TABLE `tbl_category` (
 --
 
 INSERT INTO `tbl_category` (`cat_id`, `cat_name`) VALUES
-(1, 'Biscuit'),
 (3, 'Curry'),
-(7, 'Drinks'),
-(2, 'Rice');
+(8, 'Electronics'),
+(2, 'Rice'),
+(10, 'Vachile'),
+(9, 'Water');
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,13 @@ CREATE TABLE `tbl_invoice` (
 --
 
 INSERT INTO `tbl_invoice` (`invoice_id`, `cashier_name`, `order_date`, `time_order`, `total`, `paid`, `due`) VALUES
-(11, 'saroar', '2021-02-10', '22:03', 1100, 1100, 0);
+(24, 'brur', '2021-03-25', '01:14', 6750, 6000, 750),
+(25, 'brur', '2021-03-25', '10:42', 18000, 10000, 8000),
+(27, 'brur', '2021-03-25', '10:44', 48000, 40000, 8000),
+(28, 'brur', '2021-03-26', '22:16', 38000, 30000, 8000),
+(29, 'brur', '2021-03-26', '03:47', 70945, 50000, 70945),
+(30, 'brur', '2021-03-26', '10:08', 1375, 1000, 375),
+(31, 'brur', '2021-03-26', '17:56', 32000, 30000, 2000);
 
 -- --------------------------------------------------------
 
@@ -88,7 +95,24 @@ CREATE TABLE `tbl_invoice_detail` (
 --
 
 INSERT INTO `tbl_invoice_detail` (`id`, `invoice_id`, `product_id`, `product_code`, `product_name`, `qty`, `price`, `total`, `order_date`) VALUES
-(11, 11, 1, 'IS1001', 'Potato', 1, 1100, 1100, '2021-02-10');
+(27, 24, 6, 'IS5883', 'Potato', 250, 27, 6750, '2021-03-25'),
+(28, 25, 7, 'IS4001', 'Cycle', 3, 6000, 18000, '2021-03-25'),
+(30, 27, 3, 'IS2001', 'Samsung', 3, 16000, 48000, '2021-03-25'),
+(31, 28, 3, 'IS2001', 'Samsung', 2, 16000, 32000, '2021-03-26'),
+(32, 28, 7, 'IS4001', 'Cycle', 1, 6000, 6000, '2021-03-26'),
+(33, 29, 6, 'IS5883', 'Potato', 1, 27, 27, '2021-03-26'),
+(34, 29, 3, 'IS2001', 'Samsung', 1, 16000, 16000, '2021-03-26'),
+(35, 29, 7, 'IS4001', 'Cycle', 1, 6000, 6000, '2021-03-26'),
+(36, 29, 6, 'IS5883', 'Potato', 1, 27, 27, '2021-03-26'),
+(37, 29, 3, 'IS2001', 'Samsung', 1, 16000, 16000, '2021-03-26'),
+(38, 29, 3, 'IS2001', 'Samsung', 1, 16000, 16000, '2021-03-26'),
+(39, 29, 6, 'IS5883', 'Potato', 1, 27, 27, '2021-03-26'),
+(40, 29, 3, 'IS2001', 'Samsung', 1, 16000, 16000, '2021-03-26'),
+(41, 29, 6, 'IS5883', 'Potato', 1, 27, 27, '2021-03-26'),
+(42, 29, 6, 'IS5883', 'Potato', 25, 27, 675, '2021-03-26'),
+(43, 29, 6, 'IS5883', 'Potato', 6, 27, 162, '2021-03-26'),
+(44, 30, 11, 'IS5004', 'Rice', 25, 55, 1375, '2021-03-26'),
+(45, 31, 3, 'IS2001', 'Samsung', 2, 16000, 32000, '2021-03-26');
 
 -- --------------------------------------------------------
 
@@ -115,8 +139,10 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`product_id`, `product_code`, `product_name`, `product_category`, `purchase_price`, `sell_price`, `stock`, `min_stock`, `product_Unit`, `description`, `img`) VALUES
-(1, 'IS1001', 'Potato', 'Curry', 1000, 1100, 49, 5, 'kg', 'Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato ', '6021604994eba.jpg'),
-(2, 'IS1005', 'Spa', 'Drinks', 5000, 4900, 96, 5, 'kg', 'spa spa spa spa spa spa spa spa spa spa spa spa spa ', '6023dd1f2b7f2.jpg');
+(3, 'IS2001', 'Samsung', 'Electronics', 15000, 16000, 20, 2, 'Piece', 'Android Mobile', '60240faa8e0f5.jpg'),
+(6, 'IS5883', 'Potato', 'Curry', 23, 27, 494444, 500, 'kg', 'Potato', '60254d9733dbf.jpg'),
+(7, 'IS4001', 'Cycle', 'Vachile', 5000, 6000, 1, 3, 'Piece', 'Cycle', '603623d037049.jpg'),
+(11, 'IS5004', 'Rice', 'Curry', 50, 55, 1975, 10, 'kg', 'Rice', '605d596c57c45.jpg');
 
 -- --------------------------------------------------------
 
@@ -135,7 +161,8 @@ CREATE TABLE `tbl_units` (
 
 INSERT INTO `tbl_units` (`kd_Unit`, `nm_Unit`) VALUES
 (1, 'kg'),
-(3, 'Pound');
+(4, 'letter'),
+(5, 'Piece');
 
 -- --------------------------------------------------------
 
@@ -158,7 +185,8 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`user_id`, `username`, `fullname`, `password`, `role`, `is_active`) VALUES
 (4, 'saroar', 'Saroar Mahmud', 'cse6th', 'Operator', 1),
-(5, 'brur', 'Begum Rokeya Univeristy', 'cse6th', 'Admin', 1);
+(5, 'brur', 'Begum Rokeya Univeristy', 'cse6th', 'Admin', 1),
+(6, 'Mostafa', 'Mostafa Kamal', '123456', 'Operator', 1);
 
 --
 -- Indexes for dumped tables
@@ -212,37 +240,37 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_detail`
 --
 ALTER TABLE `tbl_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_units`
 --
 ALTER TABLE `tbl_units`
-  MODIFY `kd_Unit` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kd_Unit` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
