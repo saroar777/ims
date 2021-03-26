@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("smiley","cy",{options:"Actionynau Gwenogluniau",title:"Mewnosod Gwenoglun",toolbar:"Gwenoglun"});

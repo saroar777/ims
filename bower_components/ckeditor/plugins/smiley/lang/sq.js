@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("smiley","sq",{options:"Actiononet e Ikonave",title:"Vendos Ikonë",toolbar:"Ikona"});

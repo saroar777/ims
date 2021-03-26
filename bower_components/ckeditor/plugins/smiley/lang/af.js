@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("smiley","af",{options:"Lagbekkie Actiones",title:"Voeg lagbekkie by",toolbar:"Lagbekkie"});

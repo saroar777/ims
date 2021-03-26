@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("smiley","id",{options:"Action Smiley",title:"Sisip sebuah Smiley",toolbar:"Smiley"});

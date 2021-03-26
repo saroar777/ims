@@ -1,0 +1,1 @@
+﻿CKEDITOR.plugins.setLang("colordialog","af",{clear:"Herstel",highlight:"Aktief",options:"KleurActiones",selected:"Geselekteer",title:"Kies kleur"});
