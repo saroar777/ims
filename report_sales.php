@@ -120,6 +120,7 @@
                             <th>Officer</th>
                             <th>Date</th>
                             <th>Sell</th>
+							<th>Profit</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -135,6 +136,7 @@
                                 <td class="text-uppercase"><?php echo $row->cashier_name; ?></td>
                                 <td><?php echo $row->order_date; ?></td>
                                 <td>BDT. <?php echo number_format($row->total); ?></td>
+								<td>BDT. <?php echo number_format($row->profit); ?></td>
                                 </tr>
                             <?php
                             }

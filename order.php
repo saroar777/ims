@@ -60,7 +60,7 @@
                                 <th style="width:100px;">Officer</th>
                                 <th style="width:100px;">Customer</th>
                                 <th style="width:100px;">Date</th>
-                                <th style="width:100px;">Fee</th>
+                                <th style="width:100px;">Bill</th>
                                 <th style="width:100px;">Profit</th>
                                 <th style="width:50px;">Action</th>
                             </tr>
