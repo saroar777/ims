@@ -6,13 +6,17 @@ $id = $_GET['id'];
 $select = $pdo->prepare("SELECT * FROM tbl_invoice WHERE invoice_id=$id");
 $select->execute();
 $row = $select->fetch(PDO::FETCH_OBJ);
+$customer_name = "N/A";
+if(!empty($row->customer_name)){
+    $customer_name = $row->customer_name;
+}
 
 $pdf = new FPDF('P','mm', array(80,150));
 
 $pdf->AddPage();
 
 $pdf->SetFont('Arial','B',16);
-$pdf->Cell(60,10,'Saroar Mahmud',0,1,'C');
+$pdf->Cell(60,10,'POS SYSTEM',0,1,'C');
 
 $pdf->Line(10,18,72,18);
 $pdf->Line(10,19,72,19);
@@ -32,6 +36,13 @@ $pdf->Line(10,31,72,31);
 $pdf->SetY(31);
 $pdf->SetFont('Arial','B',10);
 $pdf->Cell(60,6 ,'Purchase orders',0,1,'C');
+
+
+$pdf->SetFont('Courier','B',8);
+$pdf->Cell(20,4 ,' Customer Name:  ',0,0,'C');
+
+$pdf->SetFont('Courier','BI',8);
+$pdf->Cell(10,4 ,$customer_name,0,1,'C');
 
 
 $pdf->SetFont('Courier','B',8);

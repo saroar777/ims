@@ -33,6 +33,7 @@
       $cashier_name = $_POST['cashier_name'];
       $order_date = date("Y-m-d",strtotime($_POST['orderdate']));
       $order_time = date("H:i", strtotime($_POST['timeorder']));
+      $customer_name = $_POST['customer_name'];
       $total = $_POST['total'];
       $paid = $_POST['paid'];
       $due = $_POST['due'];
@@ -40,6 +41,8 @@
 
       $arr_product_id =  $_POST['productid'];
       $arr_product_code = $_POST['productcode'];
+      $arr_purchase_price = $_POST['purchase_price'];
+      $arr_sell_price = $_POST['sell_price'];
       $arr_product_name = $_POST['productname'];
       $arr_product_stock = $_POST['productstock'];
       $arr_product_qty = $_POST['quantity'];
@@ -58,19 +61,20 @@
       }else{
 
 
-        $insert = $pdo->prepare("INSERT INTO tbl_invoice(cashier_name, order_date, time_order, total, paid, due)
-        values(:name, :orderdate, :timeorder, :total, :paid, :due)");
+        $insert = $pdo->prepare("INSERT INTO tbl_invoice(cashier_name, order_date, time_order, customer_name, total, paid, due)
+        values(:name, :orderdate, :timeorder, :customername, :total, :paid, :due)");
 
         $insert->bindParam(':name', $cashier_name);
         $insert->bindParam(':orderdate',  $order_date);
         $insert->bindParam(':timeorder',  $order_time);
+        $insert->bindParam(':customername',  $customer_name);
         $insert->bindParam(':total', $total);
         $insert->bindParam(':paid', $paid);
         $insert->bindParam(':due', $due);
 
         $insert->execute();
 
-
+        $profit = 0;
         $invoice_id = $pdo->lastInsertId();
         if($invoice_id!=null){
           for($i=0; $i<count($arr_product_id); $i++){
@@ -90,6 +94,7 @@
               $update->execute();
             }
 
+            
 
             $insert = $pdo->prepare("INSERT INTO tbl_invoice_detail(invoice_id, product_id, product_code, product_name, qty, price, total, order_date)
             values(:invid, :productid, :productcode, :productname, :qty, :price, :total, :orderdate)");
@@ -105,7 +110,13 @@
 
             $insert->execute();
 
+            $profit += $arr_product_qty[$i]*($arr_sell_price[$i] - $arr_purchase_price[$i]);
+
           }
+          //$_SESSION['profit'] = $profit;
+          $inv_update = $pdo->prepare("UPDATE tbl_invoice SET profit = '$profit' WHERE invoice_id='".$invoice_id."'");
+          $inv_update->execute();
+
           echo '<script>location.href="order.php";</script>';
 
         }
@@ -130,7 +141,7 @@
         <div class="box box-success">
           <form action="" method="POST">
             <div class="box-body">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Officer Name</label>
                   <div class="input-group">
@@ -142,7 +153,7 @@
                   <!-- /.input group -->
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Transaction Date</label>
                   <div class="input-group">
@@ -155,7 +166,7 @@
                   <!-- /.input group -->
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Transaction Hour</label>
                   <div class="input-group">
@@ -165,6 +176,18 @@
                     <input type="text" class="form-control pull-right" name="timeorder" value="<?php date_default_timezone_set("Asia/Dhaka"); echo date('h:i:sa') 
 
                     ?>" readonly>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Customer Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" name="customer_name">
                   </div>
                   <!-- /.input group -->
                 </div>
@@ -265,7 +288,7 @@
       $(document).on('click','.btn_addOrder', function(){
         var html='';
         html+='<tr>';
-        html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly></td>';
+        html+='<td><input type="hidden" class="form-control productcode" name="productcode[]" readonly><input type="hidden" class="form-control purchase_price" name="purchase_price[]" readonly><input type="hidden" class="form-control sell_price" name="sell_price[]" readonly></td>';
         html+='<td><select class="form-control productid" name="productid[]" style="width:100px;" required><option value="">--Select Product--</option><?php
         echo fill_product($pdo)?></select></td>';
         html+='<td><input type="text" class="form-control productname" style="width:200px;" name="productname[]" readonly></td>';
@@ -288,6 +311,8 @@
             success:function(data){
               //console.log(data);
               tr.find(".productcode").val(data["product_code"]);
+              tr.find(".purchase_price").val(data["purchase_price"]);
+              tr.find(".sell_price").val(data["sell_price"]);
               tr.find(".productname").val(data["product_name"]);
               tr.find(".productstock").val(data["stock"]);
               tr.find(".productUnit").val(data["product_Unit"]);

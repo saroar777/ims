@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2021 at 02:13 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.3.26
+-- Generation Time: Mar 28, 2021 at 11:54 AM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -54,23 +55,41 @@ CREATE TABLE `tbl_invoice` (
   `cashier_name` varchar(100) NOT NULL,
   `order_date` date NOT NULL,
   `time_order` varchar(50) NOT NULL,
+  `customer_name` varchar(255) DEFAULT NULL,
   `total` float NOT NULL,
   `paid` float NOT NULL,
-  `due` float NOT NULL
+  `due` float NOT NULL,
+  `profit` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_invoice`
 --
 
-INSERT INTO `tbl_invoice` (`invoice_id`, `cashier_name`, `order_date`, `time_order`, `total`, `paid`, `due`) VALUES
-(24, 'brur', '2021-03-25', '01:14', 6750, 6000, 750),
-(25, 'brur', '2021-03-25', '10:42', 18000, 10000, 8000),
-(27, 'brur', '2021-03-25', '10:44', 48000, 40000, 8000),
-(28, 'brur', '2021-03-26', '22:16', 38000, 30000, 8000),
-(29, 'brur', '2021-03-26', '03:47', 70945, 50000, 70945),
-(30, 'brur', '2021-03-26', '10:08', 1375, 1000, 375),
-(31, 'brur', '2021-03-26', '17:56', 32000, 30000, 2000);
+INSERT INTO `tbl_invoice` (`invoice_id`, `cashier_name`, `order_date`, `time_order`, `customer_name`, `total`, `paid`, `due`, `profit`) VALUES
+(24, 'brur', '2021-03-25', '01:14', NULL, 6750, 6000, 750, NULL),
+(25, 'brur', '2021-03-25', '10:42', NULL, 18000, 10000, 8000, NULL),
+(27, 'brur', '2021-03-25', '10:44', NULL, 48000, 40000, 8000, NULL),
+(28, 'brur', '2021-03-26', '22:16', NULL, 38000, 30000, 8000, NULL),
+(29, 'brur', '2021-03-26', '03:47', NULL, 70945, 50000, 70945, NULL),
+(30, 'brur', '2021-03-26', '10:08', NULL, 1375, 1000, 375, NULL),
+(31, 'brur', '2021-03-26', '17:56', NULL, 32000, 30000, 2000, NULL),
+(32, 'saroar', '2021-03-28', '14:30', NULL, 32000, 30000, 2000, NULL),
+(33, 'saroar', '2021-03-28', '14:30', NULL, 32000, 30000, 2000, NULL),
+(34, 'saroar', '2021-03-28', '14:50', 'Kafi', 270, 200, 70, NULL),
+(35, 'saroar', '2021-03-28', '15:15', 'sobuj', 16000, 15000, 1000, NULL),
+(36, 'saroar', '2021-03-28', '15:17', 'hil kafi', 6000, 5000, 1000, NULL),
+(37, 'saroar', '2021-03-28', '15:17', 'hil kafi', 6000, 5000, 1000, NULL),
+(38, 'saroar', '2021-03-28', '15:17', 'hil kafi', 6000, 5000, 1000, NULL),
+(39, 'saroar', '2021-03-28', '15:17', 'hil kafi', 6000, 5000, 1000, NULL),
+(40, 'saroar', '2021-03-28', '15:17', 'hil kafi', 6000, 5000, 1000, NULL),
+(41, 'saroar', '2021-03-28', '15:24', 'sobuj', 270, 200, 70, NULL),
+(42, 'saroar', '2021-03-28', '15:27', 'sobuj', 135, 100, 35, NULL),
+(43, 'saroar', '2021-03-28', '15:29', 'customer', 540, 500, 40, NULL),
+(44, 'saroar', '2021-03-28', '15:35', 'fgsdfdds', 540, 540, 0, NULL),
+(45, 'saroar', '2021-03-28', '15:38', 'sobuj', 27, 27, 0, NULL),
+(46, 'saroar', '2021-03-28', '15:50', 'ghyjhu', 135, 135, 0, NULL),
+(47, 'saroar', '2021-03-28', '15:52', 'hil kafi', 270, 250, 20, 40);
 
 -- --------------------------------------------------------
 
@@ -112,7 +131,23 @@ INSERT INTO `tbl_invoice_detail` (`id`, `invoice_id`, `product_id`, `product_cod
 (42, 29, 6, 'IS5883', 'Potato', 25, 27, 675, '2021-03-26'),
 (43, 29, 6, 'IS5883', 'Potato', 6, 27, 162, '2021-03-26'),
 (44, 30, 11, 'IS5004', 'Rice', 25, 55, 1375, '2021-03-26'),
-(45, 31, 3, 'IS2001', 'Samsung', 2, 16000, 32000, '2021-03-26');
+(45, 31, 3, 'IS2001', 'Samsung', 2, 16000, 32000, '2021-03-26'),
+(46, 32, 3, 'IS2001', 'Samsung', 2, 16000, 32000, '2021-03-28'),
+(47, 33, 3, 'IS2001', 'Samsung', 2, 16000, 32000, '2021-03-28'),
+(48, 34, 6, 'IS5883', 'Potato', 10, 27, 270, '2021-03-28'),
+(49, 35, 3, 'IS2001', 'Samsung', 1, 16000, 16000, '2021-03-28'),
+(50, 36, 7, 'IS4001', 'Cycle', 1, 6000, 6000, '2021-03-28'),
+(51, 37, 7, 'IS4001', 'Cycle', 1, 6000, 6000, '2021-03-28'),
+(52, 38, 7, 'IS4001', 'Cycle', 1, 6000, 6000, '2021-03-28'),
+(53, 39, 7, 'IS4001', 'Cycle', 1, 6000, 6000, '2021-03-28'),
+(54, 40, 7, 'IS4001', 'Cycle', 1, 6000, 6000, '2021-03-28'),
+(55, 41, 6, 'IS5883', 'Potato', 10, 27, 270, '2021-03-28'),
+(56, 42, 6, 'IS5883', 'Potato', 5, 27, 135, '2021-03-28'),
+(57, 43, 6, 'IS5883', 'Potato', 20, 27, 540, '2021-03-28'),
+(58, 44, 6, 'IS5883', 'Potato', 20, 27, 540, '2021-03-28'),
+(59, 45, 6, 'IS5883', 'Potato', 1, 27, 27, '2021-03-28'),
+(60, 46, 6, 'IS5883', 'Potato', 5, 27, 135, '2021-03-28'),
+(61, 47, 6, 'IS5883', 'Potato', 10, 27, 270, '2021-03-28');
 
 -- --------------------------------------------------------
 
@@ -139,9 +174,9 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`product_id`, `product_code`, `product_name`, `product_category`, `purchase_price`, `sell_price`, `stock`, `min_stock`, `product_Unit`, `description`, `img`) VALUES
-(3, 'IS2001', 'Samsung', 'Electronics', 15000, 16000, 20, 2, 'Piece', 'Android Mobile', '60240faa8e0f5.jpg'),
-(6, 'IS5883', 'Potato', 'Curry', 23, 27, 494444, 500, 'kg', 'Potato', '60254d9733dbf.jpg'),
-(7, 'IS4001', 'Cycle', 'Vachile', 5000, 6000, 1, 3, 'Piece', 'Cycle', '603623d037049.jpg'),
+(3, 'IS2001', 'Samsung', 'Electronics', 15000, 16000, 17, 2, 'Piece', 'Android Mobile', '60240faa8e0f5.jpg'),
+(6, 'IS5883', 'Potato', 'Curry', 23, 27, 494363, 500, 'kg', 'Potato', '60254d9733dbf.jpg'),
+(7, 'IS4001', 'Cycle', 'Vachile', 5000, 6000, 0, 3, 'Piece', 'Cycle', '603623d037049.jpg'),
 (11, 'IS5004', 'Rice', 'Curry', 50, 55, 1975, 10, 'kg', 'Rice', '605d596c57c45.jpg');
 
 -- --------------------------------------------------------
@@ -246,13 +281,13 @@ ALTER TABLE `tbl_category`
 -- AUTO_INCREMENT for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tbl_invoice_detail`
 --
 ALTER TABLE `tbl_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`

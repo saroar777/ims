@@ -58,8 +58,10 @@
                             <tr>
                                 <th style="width:20px;">No</th>
                                 <th style="width:100px;">Officer</th>
+                                <th style="width:100px;">Customer</th>
                                 <th style="width:100px;">Date</th>
                                 <th style="width:100px;">Fee</th>
+                                <th style="width:100px;">Profit</th>
                                 <th style="width:50px;">Action</th>
                             </tr>
                         </thead>
@@ -73,8 +75,10 @@
                                 <tr>
                                 <td><?php echo $no++ ; ?></td>
                                 <td class="text-uppercase"><?php echo $row->cashier_name; ?></td>
+                                <td class="text-uppercase"><?php echo $row->customer_name; ?></td>
                                 <td><?php echo $row->order_date; ?></td>
                                 <td>BDT. <?php echo number_format($row->total); ?></td>
+                                <td>BDT. <?php echo number_format($row->profit); ?></td>
                                 <td>
                                     <?php if($_SESSION['role']=="Admin"){ ?>
                                     <a href="order.php?id=<?php echo $row->invoice_id; ?>" onclick="return confirm('Want to Delete Transaction?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
